@@ -7,14 +7,20 @@ type TODO = {
   completed: boolean;
 };
 
-// fuction that stores all todos into local storage on browser
+// function that stores all todos into local storage on browser
 const saveToLocalStorage = (todos: TODO[]) => {
-  localStorage.setItem("todos", JSON.stringify(todos));
+  if (typeof window !== "undefined") {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
 };
+
 // function that gets all todos from local storage
 const getFromLocalStorage = (): TODO[] => {
-  const todos = localStorage.getItem("todos");
-  return todos ? JSON.parse(todos) : [];
+  if (typeof window !== "undefined") {
+    const todos = localStorage.getItem("todos");
+    return todos ? JSON.parse(todos) : [];
+  }
+  return [];
 };
 
 class TodoStore {
@@ -44,6 +50,7 @@ class TodoStore {
     this.todos = this.todos.filter((todo) => todo.id !== id);
     saveToLocalStorage(this.todos);
   };
+
   updateTodo = (id: number, title: string) => {
     const todo = this.todos.find((todo) => todo.id === id);
     if (todo) {
