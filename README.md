@@ -77,3 +77,22 @@ This is a simple Todo application built with React, Next.js, and MobX. The appli
 ## Author
 
 Built by [Pantho Haque](https://pantho-haque.github.io/Pantho-Haque/). For any inquiries, please contact me at [pantho.haque.dev@gmail.com](mailto:pantho.haque.dev@gmail.com).
+
+
+<!-- 
+    ssh-keygen -t ed25519 -C "pantho.haque.dev@gmail.com"
+    ssh-keygen -t rsa -b 4096 -C "pantho.haque.dev@gmail.com" 
+    ls -al ~/.ssh 
+    eval "$(ssh-agent -s)" 
+    ssh-add ~/.ssh/id_rsa 
+    sudo apt-get install xclip
+    xclip -sel clip < ~/.ssh/id_rsa.pub
+
+    ssh-add ~/.ssh/id_ed25519
+    cat ~/.ssh/id_ed25519.pub
+        ssh-ed25519
+        AAAAC3NzaC1lZDI1NTE5AAAAIMex9kQ9vIcNpkSTWryhTRcmhBBSAOdJWVNShmrvNhic 
+        pantho.haque.dev@gmail.com
+
+    ssh -T git@github.com (check the connection , if the given fingerprint is same as mentioned https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints , press yes )
+ -->
