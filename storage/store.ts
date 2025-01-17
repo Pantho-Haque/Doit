@@ -1,3 +1,4 @@
+"use client";
 import { action, computed, makeObservable, observable } from "mobx";
 
 type TODO = {
