@@ -1,6 +1,11 @@
 # Todo App with MobX
 
-This is a simple Todo application built with React, Next.js, and MobX. The application demonstrates various functionalities of MobX, including state management, actions, and computed values.
+This is a simple Todo application built with 
+   - React
+   - Next.js
+   - MobX.
+The application demonstrates various functionalities of MobX, including state management, actions, and computed values.
+- the data will be storage at localstorage 
 
 ## Features
 
