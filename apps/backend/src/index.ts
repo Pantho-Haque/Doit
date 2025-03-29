@@ -29,7 +29,8 @@ app.use("/", (req: Request, res: Response) => {
 
 const port = 4000;
 app.listen(port, () => {
-  console.log(`tRPC backend running on http://localhost:${port}`);
+  console.log("ok")
+  console.log(`Server is running on http://localhost:${port}`);
 });
 
 export type { AppRouter as TServerRouter } from "./utils/trpc.js";

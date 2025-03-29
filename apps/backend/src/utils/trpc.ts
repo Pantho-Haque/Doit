@@ -1,5 +1,5 @@
 // apps/backend/src/trpc.ts
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@repo/prisma/client";
 import { initTRPC } from "@trpc/server";
 import { z } from "zod";
 

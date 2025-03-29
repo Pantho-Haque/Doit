@@ -1,0 +1,25 @@
+{
+  "name": "@repo/prisma",
+  "version": "1.0.0",
+  "files": [
+    "client"
+  ],
+  "exports": {
+    "./client": "./client/index.js"
+  },
+ "scripts": {
+    "migrate": "prisma migrate dev --name auto",
+    "studio": "pnpx prisma studio",
+    "dev": "pnpx prisma studio",
+    "ultradev": "concurrently pnpm:migrate:watch pnpm:studio"
+  },
+  "dependencies": {
+    "@prisma/client": "6.5.0",
+    "prisma": "6.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "9.1.2",
+    "nodemon": "3.1.9",
+    "linkemon": "0.2.0"
+  }
+}
