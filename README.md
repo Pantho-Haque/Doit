@@ -1,84 +1,62 @@
-# Turborepo starter
+# Doit · Expedition
 
-This Turborepo starter is maintained by the Turborepo core team.
+A todo app where every finished task moves you across a map.
+Quests earn XP, gold and steps on the trail. Reaching a region's gate unlocks the next chapter of the story.
+Everything is stored in your browser (localStorage). There is no backend.
 
-## Using this example
-
-Run the following command:
+## Run
 
 ```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
+pnpm install
+pnpm dev          # http://localhost:3000
+pnpm check        # game rules self-check
 pnpm build
 ```
 
-### Develop
+## Tests
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```sh
+pnpm test         # Playwright: builds the app and runs the UI suite
+pnpm test:ui      # same, in Playwright's interactive runner
+pnpm verify       # lint + types + rules check + UI suite — run before every commit
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+The suite (`tests/`) runs in four browsers: desktop 1440px, tablet 1024px, Android phone (Pixel 7) and iPhone 13 (WebKit).
+Every test fails if the page logs an error, and all tests run on a fixed date so day-based logic is repeatable.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+| File | Covers |
+|---|---|
+| `quests.spec.ts` | quick-add parsing and validation, HTML safety, long titles, main quest, rituals, complete/undo, double clicks, rename, quest sheet, abandon + undo, due dates and sorting, empty states, `/` shortcut |
+| `progression.spec.ts` | level-ups, chapter gates and overflow, queued modals, boss hits/kills/loop, enraged state, taunts, bestiary, loot, undo limits, day rollover, streaks, Ember Charm, midnight, Adventure mode off |
+| `campfire-satchel.spec.ts` | focus timer (pause, reset, tabs, demo speed), finishing a quest from the fire, away-from-tab, sound on/off, rewards, loot grid, journal spoilers |
+| `data.spec.ts` | reload persistence, first visit, corrupt storage, old save formats, storage failures, backup download/restore, reset confirmation, name and theme |
+| `layout.spec.ts` | no sideways scroll, nav state, tasks above the fold, tab bar/+ button overlap, settings alignment, side-panel fit, phone top bar, 44px tap targets, 16px inputs, bottom sheets, toast position, focus rings, reduced motion |
+| `tour.spec.ts` | first-run tour, every step on screen and not covering its target, keyboard, blocked background, skipped steps, replay |
+| `a11y.spec.ts` | axe-core WCAG 2.2 AA audit of every view, sheet, modal and the tour, in dark and light themes |
 
-```
-npx turbo link
-```
+## Quick add
 
-## Useful Links
+| Type | Result |
+|---|---|
+| `Ship the deck !hard #work tomorrow` | hard quest, tag `work`, due tomorrow |
+| `Read 10 pages daily` | daily ritual (habit with a streak) |
+| `Plan the week !main` | main quest: 1.5× XP, double gold, +1 step |
 
-Learn more about the power of Turborepo:
+Press `/` anywhere to jump to quick add. Double-click a quest to rename it.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## Views
+
+- **Today**: main quest, side quests, daily rituals
+- **Journal**: story chapters unlocked at each gate
+- **Campfire**: focus timer that earns XP
+- **Satchel**: spend gold on rewards you define, plus loot you've found
+
+A guided tour runs on first visit. Replay it with **Take the tour** in the sidebar.
+Sounds (campfire crackle, boss hits, growls) are generated live with the Web Audio API and can be muted in the sidebar.
+
+Standalone animated boss art lives in `public/boss/*.svg` (normal and enraged versions). The in-app boss is `components/BossArt.tsx`.
+
+Turn off **Adventure mode** in the sidebar for a plain, distraction-free task list.
+Use **Your data → Download backup** to keep a copy of your progress.
+
+Product plan and research: [docs/adventure-plan.md](docs/adventure-plan.md).

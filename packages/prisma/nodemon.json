@@ -1,5 +1,0 @@
-{
-    "watch":"schema.prisma",
-    "ext":"prisma",
-    "exec":"pnpm prisma migrate deploy"
-}
